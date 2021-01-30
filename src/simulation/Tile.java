@@ -3,7 +3,7 @@ package simulation;
 public class Tile {
     private int startX;
     private int startY;
-    private boolean isBlack = false;
+    private boolean isOccupied = false;
 
     public int getStartX() {
         return startX;
@@ -21,11 +21,11 @@ public class Tile {
         this.startY = startY;
     }
 
-    public boolean isBlack() {
-        return isBlack;
+    public boolean isOccupied() {
+        return isOccupied;
     }
 
-    public void setBlack(boolean alive) {
-        isBlack = alive;
+    public void setOccupied(boolean alive) {
+        isOccupied = alive;
     }
 }
