@@ -15,20 +15,22 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.FileWriter;
+
 import static javafx.scene.paint.Color.WHITE;
 
 
 public class Main extends Application {
     private LogicHandler log;
-    private Canvas canvas;
+    private final Canvas canvas;
     private final Timeline animation;
     private int amtSteps = 0;
-    private Label stepCounter = new Label("Steps : " + amtSteps);
+    private final Label stepCounter = new Label("Steps : " + amtSteps);
 
     public Main() {
         canvas = new Canvas(1000, 1000);
         log = new LogicHandler(canvas);
-        animation = new Timeline(new KeyFrame(Duration.millis(2), event -> {
+        animation = new Timeline(new KeyFrame(Duration.millis(1), event -> {
             log.move();
             amtSteps++;
             updateSteps(stepCounter, amtSteps);
@@ -43,12 +45,20 @@ public class Main extends Application {
 
         // Menu Buttons
         HBox menu = new HBox();
+        menu.setStyle("-fx-background-color: #ffffff");
 
         Button start = new Button("Start");
-        start.setOnAction(e -> animation.play());
+        start.setStyle("-fx-background-color: #309355");
+        start.setOnAction(e -> {
+            animation.play();
+        });
 
         Button stop = new Button("Stop");
-        stop.setOnAction(e -> animation.stop());
+        stop.setStyle("-fx-background-color: #9E0149");
+        stop.setOnAction(e -> {
+            animation.stop();
+            start.getStyle();
+        });
 
         TextField steps = new TextField("1");
         steps.textProperty().addListener((obs, oldValue, newValue) -> {
@@ -58,6 +68,7 @@ public class Main extends Application {
         });
 
         Button step = new Button("Next");
+        step.setStyle("-fx-background-color: #1f4168");
         step.setOnAction(e -> {
             for (int i = 0; i < Integer.parseInt(steps.getText()); i++) {
                 log.move();
@@ -67,11 +78,12 @@ public class Main extends Application {
         });
 
         Button gotoStep = new Button("Goto");
+        gotoStep.setStyle("-fx-background-color: #EDC211");
         gotoStep.setOnAction(e -> {
             log = new LogicHandler(canvas);
             GraphicsContext qc = canvas.getGraphicsContext2D();
             qc.setFill(WHITE);
-            qc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+            qc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
             amtSteps = 0;
             for (int i = 0; i < Integer.parseInt(steps.getText()); i++) {
                 log.move();
@@ -80,12 +92,7 @@ public class Main extends Application {
             updateSteps(stepCounter, amtSteps);
         });
 
-
-        Label sep1 = new Label("\t");
-        Label sep2 = new Label("\t");
-        Label sep3 = new Label("\t");
-
-        menu.getChildren().addAll(start, stop, sep1, steps, step, gotoStep, sep3, stepCounter);
+        menu.getChildren().addAll(start, stop, new Label("\t"), steps, step, gotoStep, new Label("\t"), stepCounter);
         // end of menu
 
         root.setTop(menu);
