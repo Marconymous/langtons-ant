@@ -7,15 +7,13 @@ import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.WHITE;
 
 public class LogicHandler {
-    private final Canvas canvas;
-    private GraphicsContext graphics;
+    private final GraphicsContext graphics;
     private final Tile[][] tiles = new Tile[100][100];
     private char rotation = 'u';
     private int currentX = 50;
     private int currentY = 50;
 
     public LogicHandler(Canvas canvas) {
-        this.canvas = canvas;
         graphics = canvas.getGraphicsContext2D();
 
         // Declare all Tiles
@@ -35,12 +33,7 @@ public class LogicHandler {
         tiles[currentY][currentX].setBlack(true);
     }
 
-    public void update() {
-        for (int i = 0; i < 10000; i++) {
-            for (int j = 0; j < 10000; j++) {
-                System.out.println("f");
-            }
-        }
+    public void move() {
         tiles[currentY][currentX].setBlack(!tiles[currentY][currentX].isBlack());
 
         int startX = tiles[currentY][currentX].getStartX();
