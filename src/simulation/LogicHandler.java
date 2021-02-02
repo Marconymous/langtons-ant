@@ -34,7 +34,7 @@ public class LogicHandler {
     }
 
     public void move() {
-        if (currentX < 1 || currentY < 1 || currentX >= tiles[0].length - 1|| currentY >= tiles.length - 1)
+        if (currentX < 1 || currentY < 1 || currentX >= tiles[0].length - 1 || currentY >= tiles.length - 1)
             return;
 
         tiles[currentY][currentX].setOccupied(!tiles[currentY][currentX].isOccupied());
@@ -43,7 +43,7 @@ public class LogicHandler {
         int startY = tiles[currentY][currentX].getStartY();
 
         if (tiles[lastY][lastX].isOccupied()) {
-            graphics.setFill(getRandColor());
+            graphics.setFill(getRandomGrayScaleColor());
         } else {
             graphics.setFill(WHITE);
         }
@@ -78,7 +78,7 @@ public class LogicHandler {
         }
     }
 
-    private Color getRandColor() {
+    private Color getRandomGrayScaleColor() {
         float g = (float) (Math.random() + 1) / 4;
         return new Color(g, g, g, 1);
     }

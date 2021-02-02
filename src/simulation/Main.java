@@ -15,8 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.FileWriter;
-
 import static javafx.scene.paint.Color.WHITE;
 
 
@@ -48,7 +46,7 @@ public class Main extends Application {
         menu.setStyle("-fx-background-color: #ffffff");
 
         Button start = new Button("Start");
-        start.setStyle("-fx-background-color: #309355");
+        start.setStyle("-fx-background-color: #30b564");
         start.setOnAction(e -> {
             animation.play();
         });
