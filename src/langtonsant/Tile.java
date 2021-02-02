@@ -1,4 +1,4 @@
-package simulation;
+package langtonsant;
 
 public class Tile {
     private int startX;

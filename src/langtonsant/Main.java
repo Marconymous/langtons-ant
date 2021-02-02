@@ -1,4 +1,4 @@
-package simulation;
+package langtonsant;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
