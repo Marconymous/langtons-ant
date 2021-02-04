@@ -1,24 +1,24 @@
 package langtonsant;
 
 public class Tile {
-    private int startX;
-    private int startY;
+    private int x;
+    private int y;
     private boolean isOccupied = false;
 
-    public int getStartX() {
-        return startX;
+    public int getX() {
+        return x;
     }
 
-    public void setStartX(int startX) {
-        this.startX = startX;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public int getStartY() {
-        return startY;
+    public int getY() {
+        return y;
     }
 
-    public void setStartY(int startY) {
-        this.startY = startY;
+    public void setY(int y) {
+        this.y = y;
     }
 
     public boolean isOccupied() {

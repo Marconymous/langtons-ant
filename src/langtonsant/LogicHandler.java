@@ -23,8 +23,8 @@ public class LogicHandler {
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 tiles[y][x] = new Tile();
-                tiles[y][x].setStartX(x * squareSize);
-                tiles[y][x].setStartY(y * squareSize);
+                tiles[y][x].setX(x * squareSize);
+                tiles[y][x].setY(y * squareSize);
             }
         }
         tiles[currentY][currentX].setOccupied(true);
@@ -33,21 +33,21 @@ public class LogicHandler {
         graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
-    public void move() {
+    public boolean move() {
         if (currentX < 1 || currentY < 1 || currentX >= tiles[0].length - 1 || currentY >= tiles.length - 1)
-            return;
+            return false;
 
         tiles[currentY][currentX].setOccupied(!tiles[currentY][currentX].isOccupied());
 
-        int startX = tiles[currentY][currentX].getStartX();
-        int startY = tiles[currentY][currentX].getStartY();
+        int startX = tiles[currentY][currentX].getX();
+        int startY = tiles[currentY][currentX].getY();
 
         if (tiles[lastY][lastX].isOccupied()) {
             graphics.setFill(getRandomGrayScaleColor());
         } else {
             graphics.setFill(WHITE);
         }
-        graphics.fillRect(tiles[lastY][lastX].getStartX(), tiles[lastY][lastX].getStartY(), squareSize, squareSize);
+        graphics.fillRect(tiles[lastY][lastX].getX(), tiles[lastY][lastX].getY(), squareSize, squareSize);
         graphics.setFill(RED);
         graphics.fillRect(startX, startY, squareSize, squareSize);
 
@@ -76,6 +76,7 @@ public class LogicHandler {
                 currentX--;
                 break;
         }
+        return true;
     }
 
     private Color getRandomGrayScaleColor() {

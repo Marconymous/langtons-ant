@@ -21,17 +21,20 @@ import static javafx.scene.paint.Color.WHITE;
 public class Main extends Application {
     private LogicHandler log;
     private final Canvas canvas;
-    private final Timeline animation;
+    private Timeline animation;
     private int amtSteps = 0;
     private final Label stepCounter = new Label("Steps : " + amtSteps);
 
     public Main() {
         canvas = new Canvas(1000, 1000);
         log = new LogicHandler(canvas);
-        animation = new Timeline(new KeyFrame(Duration.millis(1), event -> {
-            log.move();
-            amtSteps++;
-            updateSteps(stepCounter, amtSteps);
+        animation = new Timeline(new KeyFrame(Duration.millis(0.5), event -> {
+            if (!log.move()) {
+                animation.stop();
+            } else {
+                amtSteps++;
+                updateSteps(stepCounter, amtSteps);
+            }
         }));
         animation.setCycleCount(Animation.INDEFINITE);
     }
@@ -58,17 +61,17 @@ public class Main extends Application {
             start.getStyle();
         });
 
-        TextField steps = new TextField("1");
-        steps.textProperty().addListener((obs, oldValue, newValue) -> {
+        TextField input = new TextField("1");
+        input.textProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                steps.setText(newValue.replaceAll("[^\\d]", "1"));
+                input.setText(newValue.replaceAll("[^\\d]", "1"));
             }
         });
 
         Button step = new Button("Next");
         step.setStyle("-fx-background-color: #1f4168");
         step.setOnAction(e -> {
-            for (int i = 0; i < Integer.parseInt(steps.getText()); i++) {
+            for (int i = 0; i < Integer.parseInt(input.getText()); i++) {
                 log.move();
                 amtSteps++;
                 updateSteps(stepCounter, amtSteps);
@@ -83,14 +86,14 @@ public class Main extends Application {
             qc.setFill(WHITE);
             qc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
             amtSteps = 0;
-            for (int i = 0; i < Integer.parseInt(steps.getText()); i++) {
+            for (int i = 0; i < Integer.parseInt(input.getText()); i++) {
                 log.move();
                 amtSteps++;
             }
             updateSteps(stepCounter, amtSteps);
         });
 
-        menu.getChildren().addAll(start, stop, new Label("\t"), steps, step, gotoStep, new Label("\t"), stepCounter);
+        menu.getChildren().addAll(start, stop, new Label("\t"), input, step, gotoStep, new Label("\t"), stepCounter);
         // end of menu
 
         root.setTop(menu);
